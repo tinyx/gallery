@@ -1,24 +1,71 @@
-.App {
-  text-align: center;
+#root {
+  height: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.ant-spin {
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.app-root {
+  height: 100%;
 }
 
-.App-intro {
-  font-size: large;
+.app-root .logo {
+  height: 32px;
+  border-radius: 6px;
+  margin: 16px;
+  padding-bottom: 55px;
+  overflow: hidden;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.logo > img {
+  width: 100%;
+  filter: invert(77%);
+}
+
+.ant-layout-sider-collapsed > .logo > img {
+  width: 180px;
+}
+
+.app-root .ant-layout-sider-collapsed .anticon {
+  font-size: 16px;
+}
+
+.app-root .ant-layout-sider-collapsed .nav-text {
+  display: none;
+}
+
+.app-root .ant-layout-sider-collapsed .ant-menu-submenu-vertical > .ant-menu-submenu-title:after {
+  display: none;
+}
+
+ul.ant-menu {
+  text-transform: uppercase;
+}
+
+.content-header > .ant-breadcrumb {
+  text-transform: uppercase;
+}
+
+.content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slider-container > .ant-slider {
+  margin-left: 30px;
+  width: 100px;
+  border-color: #ececec;
 }
