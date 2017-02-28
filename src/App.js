@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Spin, Layout, Menu, Breadcrumb, Icon, Slider } from 'antd';
-import { browserHistory, Router, Route, Link, withRouter } from 'react-router'
+import { Spin, Layout, Menu, Breadcrumb, Icon, Slider, Switch } from 'antd';
+import { browserHistory, Router, Route, Link } from 'react-router'
 
 import Portfolio from './components/Portfolio';
+import Illustration from './components/Illustration';
 
 import 'antd/dist/antd.css';
 import './App.css';
 
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider, Header } = Layout;
 const SubMenu = Menu.SubMenu;
 
 class App extends React.Component {
@@ -20,6 +21,8 @@ class App extends React.Component {
     images: null,
     imageSize: 300,
     theme: 'dark',
+    selectedItem: 0,
+    browseMode: true,
   };
   onCollapse = (collapsed) => {
     this.setState({
@@ -60,7 +63,18 @@ class App extends React.Component {
       case 200: return 'Medium';
       case 300: return 'Large';
       case 400: return 'X Large';
+      default: return 'Large';
     }
+  }
+  switchMode = (browseMode) => {
+    this.setState({
+      browseMode
+    });
+  }
+  setSelectedItem = (selectedItem) => {
+    this.setState({
+      selectedItem
+    }, () => this.switchMode(true));
   }
   render() {
     if (!this.state.categories || !this.state.images) {
@@ -83,7 +97,7 @@ class App extends React.Component {
           onCollapse={this.onCollapse}
         >
           <div className="logo">
-            <img src={require('./logo.jpg')} />
+            <img src={require('./logo.jpg')} alt='Gallery' />
           </div>
           <Menu
             theme={this.state.theme}
@@ -115,15 +129,15 @@ class App extends React.Component {
           </Menu>
         </Sider>
         <Layout>
-          <Content style={{ margin: '0 16px' }}>
-            <div className="content-header">
-              <Breadcrumb
-                theme={this.state.theme}
-                style={{ margin: '12px 0' }}
-              >
-                <Breadcrumb.Item>{currentCategory.is_full_size ? 'Illustration' : 'Portfolio'}</Breadcrumb.Item>
-                <Breadcrumb.Item>{currentCategory.name}</Breadcrumb.Item>
-              </Breadcrumb>
+          <Header>
+            <Breadcrumb
+              theme={this.state.theme}
+              style={{ margin: '12px 0' }}
+            >
+              <Breadcrumb.Item>{currentCategory.is_full_size ? 'Illustration' : 'Portfolio'}</Breadcrumb.Item>
+              <Breadcrumb.Item>{currentCategory.name}</Breadcrumb.Item>
+            </Breadcrumb>
+            { !currentCategory.is_full_size ?
               <div className="slider-container">
                 <p>Image Size:</p>
                 <Slider
@@ -135,19 +149,32 @@ class App extends React.Component {
                   tipFormatter={this.formatter}
                   onChange={this.onImageSizeChange}
                 />
-              </div>
-            </div>
-            <div>
-              {
-                currentCategory.is_full_size ?
-                null :
-                <Portfolio
-                  images={images}
-                  imageSize={this.state.imageSize}
+              </div> :
+              <div className="slider-container">
+                <p>Browse Mode:&nbsp;&nbsp;</p>
+                <Switch
+                  checked={this.state.browseMode}
+                  onChange={this.switchMode}
                 />
-              }
-            </div>
-          </Content>
+              </div>
+            }
+          </Header>
+          {
+            currentCategory.is_full_size ?
+            <Illustration
+              images={images}
+              browseMode={this.state.browseMode}
+              switchMode={this.switchMode}
+              setSelectedItem={this.setSelectedItem}
+              selectedItem={this.state.selectedItem}
+            /> :
+            <Content>
+              <Portfolio
+                images={images}
+                imageSize={this.state.imageSize}
+              />
+            </Content>
+          }
           <Footer style={{ textAlign: 'center' }}>
             <p>Contact: <a href="mailto:Triplesludgeballs@gmail.com">Triplesludgeballs@gmail.com</a></p>
             <p>Sicong Sui 2016</p>

@@ -52,7 +52,8 @@ ul.ant-menu {
   text-transform: uppercase;
 }
 
-.content-header {
+.ant-layout-header {
+  background: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -68,4 +69,47 @@ ul.ant-menu {
   margin-left: 30px;
   width: 100px;
   border-color: #ececec;
+}
+
+.illustration {
+  height: calc(100% - 148px);
+  flex-shrink: 1;
+  margin: 0 16px;
+}
+
+.illustration div {
+  height: 100%;
+}
+
+.carousel.carousel-slider {
+  height: 100%;
+}
+
+.slider-wrapper.axis-horizontal {
+  height: 100% !important;
+}
+
+.carousel .slider-wrapper.axis-horizontal .slider {
+  height: 100% !important;
+}
+
+.carousel .slider-wrapper.axis-horizontal .slider .slide {
+  height: 100% !important;
+}
+
+.carousel .slide {
+  background: #ececec;
+}
+
+.carousel .slide img {
+  height: 100%;
+  width: auto;
+}
+
+.carousel.carousel-slider .control-arrow {
+  background: #ccc;
+}
+
+#Gallery {
+  margin: 0 16px;
 }
