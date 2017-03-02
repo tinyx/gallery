@@ -36,6 +36,7 @@ class Illustration extends React.Component {
         showStatus={false}
         showIndicators={false}
         selectedItem={this.props.selectedItem}
+        onChange={this.props.setSelectedItem}
         dynamicHeight
         emulateTouch
       >
