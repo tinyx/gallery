@@ -9,13 +9,12 @@ import 'antd/dist/antd.css';
 import './App.css';
 
 
-const { Content, Footer, Sider, Header } = Layout;
+const { Content, Footer, Header } = Layout;
 const SubMenu = Menu.SubMenu;
 
 class App extends React.Component {
   state = {
-    mode: 'inline',
-    openKeys: ['portfolio', 'illustration'],
+    mode: 'horizontal',
     categories: null,
     images: null,
     imageSize: 300,
@@ -38,11 +37,6 @@ class App extends React.Component {
           images: responseJson,
         });
       });
-  }
-  onOpenChange = (openKeys) => {
-    this.setState({
-      openKeys
-    });
   }
   onImageSizeChange = (imageSize) => {
     this.setState({
@@ -83,16 +77,17 @@ class App extends React.Component {
     let images = this.state.images.filter(image => image.category === currentCategory.id);
     return (
       <Layout className='app-root'>
-        <Sider>
-          <div className="logo">
-            <img src={require('./logo.jpg')} alt='Gallery' />
-          </div>
+        <Header className='page-header'>
+          {/*
+            <div className="logo">
+              <img src={require('./logo.jpg')} alt='Gallery' />
+            </div>
+            */
+          }
           <Menu
             theme={this.state.theme}
             mode={this.state.mode}
-            openKeys={this.state.openKeys}
             selectedKeys={[currentCategory.name]}
-            onOpenChange={this.onOpenChange}
           >
             {this.state.categories.filter(category => !category.is_full_size).map((category) => (
               <Menu.Item key={category.name}>
@@ -105,9 +100,9 @@ class App extends React.Component {
               </Menu.Item>
             ))}
           </Menu>
-        </Sider>
-        <Layout>
-          <Header>
+        </Header>
+        <Layout className={`${currentCategory.is_full_size ? 'white' : ''}`}>
+          <Header className={`content-header ${currentCategory.is_full_size ? 'white' : ''}`}>
             <Breadcrumb
               theme={this.state.theme}
               style={{ margin: '12px 0' }}

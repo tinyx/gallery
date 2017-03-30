@@ -34,6 +34,7 @@
 
 .ant-layout {
   height: 100%;
+  background: #ddd;
 }
 
 .app-root .ant-layout-sider-collapsed .anticon {
@@ -56,25 +57,44 @@ ul.ant-menu {
   text-transform: uppercase;
 }
 
-.ant-layout-header {
+.content-header {
   background: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: fixed;
-  bottom: 0;
+  top: 0;
+  width: 100%;
   transition: width .1s;
   z-index: 1000;
-  background: #ececec;
-  width: calc(100% - 200px);
+  background: #ddd;
+}
+
+.content-header.white {
+  background: #fff;
+}
+
+.ant-layout.white {
+  background: #fff;
+}
+
+.page-header {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 46px;
+  background: #888;
+}
+
+.ant-menu.ant-menu-horizontal.ant-menu-dark.ant-menu-root {
+  background: #888;
+  border-bottom-color: #888;
 }
 
 .ant-layout-content {
-  maring-bottom: 64px;
-}
-
-.collapsed .ant-layout-header {
-  width: calc(100% - 64px);
+  margin-top: 64px;
+  margin-bottom: 64px;
 }
 
 .slider-container {
@@ -86,11 +106,11 @@ ul.ant-menu {
 .slider-container > .ant-slider {
   margin-left: 30px;
   width: 100px;
-  border-color: #ececec;
+  border-color: #ddd;
 }
 
 .illustration {
-  height: calc(100% - 148px);
+  height: calc(100% - 80px);
   flex-shrink: 1;
   margin: 16px;
 }
@@ -116,7 +136,7 @@ ul.ant-menu {
 }
 
 .carousel .slide {
-  background: #ececec;
+  background: #fff;
 }
 
 .carousel .slide img {

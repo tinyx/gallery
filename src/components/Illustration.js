@@ -38,7 +38,6 @@ class Illustration extends React.Component {
         selectedItem={this.props.selectedItem}
         onChange={this.props.setSelectedItem}
         dynamicHeight
-        emulateTouch
       >
         {this.props.images.map(image => (
           <div key={image.id}>
