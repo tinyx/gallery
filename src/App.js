@@ -107,7 +107,6 @@ class App extends React.Component {
               theme={this.state.theme}
               style={{ margin: '12px 0' }}
             >
-              <Breadcrumb.Item>{currentCategory.is_full_size ? 'Illustration' : 'Portfolio'}</Breadcrumb.Item>
               <Breadcrumb.Item>{currentCategory.name}</Breadcrumb.Item>
             </Breadcrumb>
             { !currentCategory.is_full_size ?
