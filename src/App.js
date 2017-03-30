@@ -14,7 +14,6 @@ const SubMenu = Menu.SubMenu;
 
 class App extends React.Component {
   state = {
-    collapsed: false,
     mode: 'inline',
     openKeys: ['portfolio', 'illustration'],
     categories: null,
@@ -24,13 +23,6 @@ class App extends React.Component {
     selectedItem: 0,
     browseMode: true,
   };
-  onCollapse = (collapsed) => {
-    this.setState({
-      collapsed,
-      mode: collapsed ? 'vertical' : 'inline',
-      openKeys: collapsed ? [] : ['portfolio', 'illustration'],
-    });
-  }
   componentDidMount() {
     fetch('http://crabfactory.net/gallery/categories')
       .then((response) => response.json())
@@ -91,11 +83,7 @@ class App extends React.Component {
     let images = this.state.images.filter(image => image.category === currentCategory.id);
     return (
       <Layout className='app-root'>
-        <Sider
-          collapsible
-          collapsed={this.state.collapsed}
-          onCollapse={this.onCollapse}
-        >
+        <Sider>
           <div className="logo">
             <img src={require('./logo.jpg')} alt='Gallery' />
           </div>
@@ -106,26 +94,16 @@ class App extends React.Component {
             selectedKeys={[currentCategory.name]}
             onOpenChange={this.onOpenChange}
           >
-            <SubMenu
-              key="portfolio"
-              title={<span><Icon type="appstore-o" /><span className="nav-text">Portfolio</span></span>}
-            >
-              {this.state.categories.filter(category => !category.is_full_size).map((category) => (
-                <Menu.Item key={category.name}>
-                  <Link to={`/${category.name}`}>{category.name}</Link>
-                </Menu.Item>
-              ))}
-            </SubMenu>
-            <SubMenu
-              key="illustration"
-              title={<span><Icon type="file" /><span className="nav-text">Illustration</span></span>}
-            >
-              {this.state.categories.filter(category => category.is_full_size).map((category) => (
-                <Menu.Item key={category.name}>
-                  <Link to={`/${category.name}`}>{category.name}</Link>
-                </Menu.Item>
-              ))}
-            </SubMenu>
+            {this.state.categories.filter(category => !category.is_full_size).map((category) => (
+              <Menu.Item key={category.name}>
+                <Link to={`/${category.name}`}>{category.name}</Link>
+              </Menu.Item>
+            ))}
+            {this.state.categories.filter(category => category.is_full_size).map((category) => (
+              <Menu.Item key={category.name}>
+                <Link to={`/${category.name}`}>{category.name}</Link>
+              </Menu.Item>
+            ))}
           </Menu>
         </Sider>
         <Layout>
@@ -175,10 +153,6 @@ class App extends React.Component {
               />
             </Content>
           }
-          <Footer style={{ textAlign: 'center' }}>
-            <p>Contact: <a href="mailto:Triplesludgeballs@gmail.com">Triplesludgeballs@gmail.com</a></p>
-            <p>Sicong Sui 2016</p>
-          </Footer>
         </Layout>
       </Layout>
     );

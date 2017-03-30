@@ -61,6 +61,20 @@ ul.ant-menu {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  transition: width .1s;
+  z-index: 1000;
+  background: #ececec;
+  width: calc(100% - 200px);
+}
+
+.ant-layout-content {
+  maring-bottom: 64px;
+}
+
+.collapsed .ant-layout-header {
+  width: calc(100% - 64px);
 }
 
 .slider-container {
@@ -78,7 +92,7 @@ ul.ant-menu {
 .illustration {
   height: calc(100% - 148px);
   flex-shrink: 1;
-  margin: 0 16px;
+  margin: 16px;
 }
 
 .illustration div {
@@ -115,5 +129,9 @@ ul.ant-menu {
 }
 
 #Gallery {
-  margin: 0 16px;
+  margin: 16px 16px 64px 16px;
+}
+
+#Gallery .tile {
+  margin: 10px !important;
 }
