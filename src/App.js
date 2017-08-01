@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
-import { Spin, Layout, Menu, Breadcrumb, Icon, Slider, Switch } from 'antd';
+import { Spin, Layout, Menu, Breadcrumb, Switch } from 'antd';
 import { browserHistory, Router, Route, Link } from 'react-router'
-
-import Portfolio from './components/Portfolio';
 import Illustration from './components/Illustration';
 
 import 'antd/dist/antd.css';
 import './App.css';
 
-
-const { Content, Footer, Header } = Layout;
-const SubMenu = Menu.SubMenu;
+const Header = Layout.Header;
 
 class App extends React.Component {
   state = {
-    mode: 'horizontal',
     categories: null,
     images: null,
-    imageSize: 300,
     theme: 'dark',
-    selectedItem: 0,
-    browseMode: true,
+    selectedItems: {},
+    browseModes: {},
   };
   componentDidMount() {
     fetch('http://crabfactory.net/gallery/categories')
@@ -38,29 +32,25 @@ class App extends React.Component {
         });
       });
   }
-  onImageSizeChange = (imageSize) => {
+  switchMode = (browseMode, currentCategory) => {
     this.setState({
-      imageSize
+      browseModes: {
+        ...this.state.browseModes,
+        [currentCategory]: browseMode,
+      },
     });
   }
-  formatter = (imageSize) => {
-    switch(imageSize) {
-      case 100: return 'Small';
-      case 200: return 'Medium';
-      case 300: return 'Large';
-      case 400: return 'X Large';
-      default: return 'Large';
-    }
-  }
-  switchMode = (browseMode) => {
+  setSelectedItem = (selectedItem, currentCategory) => {
     this.setState({
-      browseMode
+      selectedItems: {
+        ...this.state.selectedItems,
+        [currentCategory]: selectedItem,
+      },
+      browseModes: {
+        ...this.state.browseModes,
+        [currentCategory]: true,
+      }
     });
-  }
-  setSelectedItem = (selectedItem) => {
-    this.setState({
-      selectedItem
-    }, () => this.switchMode(true));
   }
   render() {
     if (!this.state.categories || !this.state.images) {
@@ -86,67 +76,52 @@ class App extends React.Component {
           }
           <Menu
             theme={this.state.theme}
-            mode={this.state.mode}
+            mode='horizontal'
             selectedKeys={[currentCategory.name]}
           >
-            {this.state.categories.filter(category => !category.is_full_size).map((category) => (
-              <Menu.Item key={category.name}>
-                <Link to={`/${category.name}`}>{category.name}</Link>
-              </Menu.Item>
-            ))}
-            {this.state.categories.filter(category => category.is_full_size).map((category) => (
+            {this.state.categories.map((category) => (
               <Menu.Item key={category.name}>
                 <Link to={`/${category.name}`}>{category.name}</Link>
               </Menu.Item>
             ))}
           </Menu>
         </Header>
-        <Layout className={`${currentCategory.is_full_size ? 'white' : ''}`}>
-          <Header className={`content-header ${currentCategory.is_full_size ? 'white' : ''}`}>
+        <Layout className='white'>
+          <Header className='content-header white'>
             <Breadcrumb
               theme={this.state.theme}
               style={{ margin: '12px 0' }}
             >
               <Breadcrumb.Item>{currentCategory.name}</Breadcrumb.Item>
             </Breadcrumb>
-            { !currentCategory.is_full_size ?
-              <div className="slider-container">
-                <p>Image Size:</p>
-                <Slider
-                  min={100}
-                  max={400}
-                  step={100}
-                  theme={this.state.theme}
-                  value={this.state.imageSize}
-                  tipFormatter={this.formatter}
-                  onChange={this.onImageSizeChange}
-                />
-              </div> :
-              <div className="slider-container">
-                <p>Browse Mode:&nbsp;&nbsp;</p>
-                <Switch
-                  checked={this.state.browseMode}
-                  onChange={this.switchMode}
-                />
-              </div>
-            }
-          </Header>
-          {
-            currentCategory.is_full_size ?
-            <Illustration
-              images={images}
-              browseMode={this.state.browseMode}
-              switchMode={this.switchMode}
-              setSelectedItem={this.setSelectedItem}
-              selectedItem={this.state.selectedItem}
-            /> :
-            <Content>
-              <Portfolio
-                images={images}
-                imageSize={this.state.imageSize}
+            <div className="slider-container">
+              <p>Browse Mode:&nbsp;&nbsp;</p>
+              <Switch
+                checked={
+                  currentCategory.id in this.state.browseModes ?
+                  this.state.browseModes[currentCategory.id] :
+                  true
+                }
+                onChange={(mode) => this.switchMode(mode, currentCategory.id)}
               />
-            </Content>
-          }
+            </div>
+          </Header>
+          <Illustration
+            key={currentCategory.id}
+            images={images}
+            browseMode={
+              currentCategory.id in this.state.browseModes ?
+              this.state.browseModes[currentCategory.id] :
+              true
+            }
+            selectedItem={
+              currentCategory.id in this.state.selectedItems ?
+              this.state.selectedItems[currentCategory.id] :
+              0
+            }
+            switchMode={(mode) => this.switchMode(mode, currentCategory.id)}
+            setSelectedItem={(item) => this.setSelectedItem(item, currentCategory.id)}
+          />
         </Layout>
       </Layout>
     );
@@ -154,7 +129,6 @@ class App extends React.Component {
 }
 
 class AppRouter extends Component {
-
   render() {
     return (
       <Router history={browserHistory}>
