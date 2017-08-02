@@ -100,7 +100,7 @@ class App extends React.Component {
                 checked={
                   currentCategory.id in this.state.browseModes ?
                   this.state.browseModes[currentCategory.id] :
-                  true
+                  false
                 }
                 onChange={(mode) => this.switchMode(mode, currentCategory.id)}
               />
@@ -112,7 +112,7 @@ class App extends React.Component {
             browseMode={
               currentCategory.id in this.state.browseModes ?
               this.state.browseModes[currentCategory.id] :
-              true
+              false
             }
             selectedItem={
               currentCategory.id in this.state.selectedItems ?

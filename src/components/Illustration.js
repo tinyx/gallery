@@ -53,7 +53,7 @@ class Illustration extends React.Component {
 
 Illustration.defaultProps = {
   selectedItem: 0,
-  browseMode: true,
+  browseMode: false,
 };
 
 export default Illustration;

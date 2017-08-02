@@ -3,3 +3,8 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+button.control-arrow:before {
+  border-right-color: #000 !important;
+  border-left-color: #000 !important;
+}
