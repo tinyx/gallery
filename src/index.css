@@ -8,3 +8,13 @@ button.control-arrow:before {
   border-right-color: #000 !important;
   border-left-color: #000 !important;
 }
+
+.page-header.ant-layout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contact-link {
+  color: rgba(255, 255, 255, 0.67);
+}
