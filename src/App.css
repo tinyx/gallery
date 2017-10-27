@@ -109,9 +109,9 @@ ul.ant-menu {
 }
 
 .illustration {
-  height: calc(100% - 80px);
+  height: calc(100% - 128px);
   flex-shrink: 1;
-  margin: 16px;
+  margin: 64px 16px 16px;
 }
 
 .illustration div {
