@@ -14,8 +14,8 @@ class Illustration extends React.Component {
     for(let i=0; i<this.props.images.length; i++) {
       const image = this.props.images[i];
       images.push({
-        src: 'http://crabfactory.net' + image.image_file,
-        thumbnail: 'http://crabfactory.net' + image.image_file,
+        src: 'http://yitao.io' + image.image_file,
+        thumbnail: 'http://yitao.io' + image.image_file,
         caption: image.description,
       })
     }
@@ -41,7 +41,7 @@ class Illustration extends React.Component {
       >
         {this.props.images.map(image => (
           <div key={image.id}>
-            <img src={'http://crabfactory.net' + image.image_file} alt='image' />
+            <img src={'http://yitao.io' + image.image_file} alt='image' />
           </div>
         ))}
       </Carousel>
