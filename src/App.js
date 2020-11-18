@@ -17,14 +17,14 @@ class App extends React.Component {
     browseModes: {},
   };
   componentDidMount() {
-    fetch('http://yitao.io/gallery/categories')
+    fetch('https://yitao.io/gallery/categories')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
           categories: responseJson,
         });
       });
-    fetch('http://yitao.io/gallery/images')
+    fetch('https://yitao.io/gallery/images')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({

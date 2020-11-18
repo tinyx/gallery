@@ -8,8 +8,8 @@ class Portfolio extends React.Component {
     for(let i=0; i<this.props.images.length; i++) {
       const image = this.props.images[i];
       images.push({
-        src: 'http://yitao.io' + image.image_file,
-        thumbnail: 'http://yitao.io' + image.image_file,
+        src: 'https://yitao.io' + image.image_file,
+        thumbnail: 'https://yitao.io' + image.image_file,
         caption: image.description,
       })
     }
