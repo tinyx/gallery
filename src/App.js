@@ -85,8 +85,8 @@ class App extends React.Component {
               </Menu.Item>
             ))}
           </Menu>
-          <a className="contact-link" href="mailto:Triplesludgeballs@gmail.com">
-            Triplesludgeballs@gmail.com
+          <a className="contact-link" href="mailto:hb1412@gmail.com">
+            hb1412@gmail.com
           </a>
         </Header>
         <Layout className='white'>
